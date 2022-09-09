@@ -11,7 +11,7 @@ locals {
   color = local.environment_vars.locals.color
 
   # Expose the base source URL so different versions of the module can be deployed in different environments.
-  base_source_url = "github.com/camptocamp/devops-stack.git//modules/eks/aws"
+  base_source_url = "../../../../../modules//cognito"
 
   # ---------------------------------------------------------------------------------------------------------------------
   # MODULE PARAMETERS
@@ -28,20 +28,5 @@ locals {
 inputs = {
 
   cluster_name = local.cluster_name
-  base_domain  = "is-sandbox.camptocamp.com"
-  #cluster_version = "1.22"
-
-  cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
-
-  node_groups = {
-    "${local.cluster_name}-main" = {
-      instance_type     = "m5a.large"
-      min_size          = 2
-      max_size          = 3
-      desired_size      = 2
-      #target_group_arns = var.nlb_target_groups
-    },
-  }
-
-  create_public_nlb = true
+  
 }

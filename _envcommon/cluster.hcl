@@ -31,8 +31,8 @@ locals {
   # These are the variables we have to pass in to use the module. This defines the parameters that are common across all
   # environments.
   # ---------------------------------------------------------------------------------------------------------------------
-  cluster_name = "jbt-terragrunt-${local.env}-${local.color}"
-  name         = "jbt-terragrunt-${local.env}-${local.color}"
+  cluster_name = "jbt-${local.env}-${local.color}"
+  name         = "jbt-${local.env}-${local.color}"
 }
 
 inputs = {

@@ -7,8 +7,8 @@
 # We override the terraform block source attribute here just for the dev environment to show how you would deploy a
 # different version of the module in a specific environment.
 terraform {
-  #source = "${include.envcommon.locals.base_source_url}"
-  source = "github.com/camptocamp/devops-stack.git//modules/eks/aws?ref=sensitive"
+  source = "${include.envcommon.locals.base_source_url}"
+  #source = ""
 }
 
 
@@ -25,26 +25,13 @@ include "root" {
 # Include the envcommon configuration for the component. The envcommon configuration contains settings that are common
 # for the component across all environments.
 include "envcommon" {
-  path   = "${dirname(find_in_parent_folders())}/_envcommon/eks.hcl"
+  path   = "${dirname(find_in_parent_folders())}/_envcommon/cognito.hcl"
   expose = true
 }
 
 dependency "cluster" {
   config_path = "../cluster"
 }
-
-dependency "cognito" {
-  config_path = "../cognito"
-}
 # ---------------------------------------------------------------------------------------------------------------------
 # We don't need to override any of the common parameters for this environment, so we don't specify any other parameters.
 # ---------------------------------------------------------------------------------------------------------------------
-inputs = {
-  vpc_id         = dependency.cluster.outputs.vpc_id
-  vpc_cidr_block = dependency.cluster.outputs.vpc_cidr_block
-  private_subnet_ids = dependency.cluster.outputs.private_subnets
-  public_subnet_ids  = dependency.cluster.outputs.public_subnets
-  cognito_user_pool_id       = dependency.cognito.outputs.user_pool_id
-  cognito_user_pool_domain   = dependency.cognito.outputs.user_pool_domain
-  iam_role_user_name_prefix = ""
-}
